@@ -1,0 +1,38 @@
+<!--new-matches.html-->
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание нового матча</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/matches">Matches</a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Создание нового матча</h1>
+        <form action="/new-match" method="POST">
+            <label>{{error}}</label>
+            <div class="form-group">
+                <label for="player1">Имя игрока 1:</label>
+                <input type="text" id="player1" name="player1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="player2">Имя игрока 2:</label>
+                <input type="text" id="player2" name="player2" required>
+            </div>
+
+            <input type="submit" value="Начать">
+        </form>
+    </div>
+</body>
+
+</html>

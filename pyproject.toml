@@ -1,0 +1,35 @@
+[project]
+name = "tennis-match-scoreboard"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "mandalorianec",email = "173474864+mandalorianec@users.noreply.github.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "greenlet (==3.2.4)",
+    "markupsafe (==3.0.3)",
+    "mysqlclient (==2.2.7)",
+    "pymysql (==1.1.2)",
+    "sqlalchemy (==2.0.43)",
+    "typing-extensions (==4.15.0)",
+    "cryptography (>=46.0.2,<47.0.0)",
+    "jinja2 (>=3.1.6,<4.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+packages = [
+    { include = "src" },
+]
+
+[dependency-groups]
+dev = [
+    "alembic (==1.16.5)",
+    "mako (==1.3.10)"
+]

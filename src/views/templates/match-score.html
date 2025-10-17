@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница счёта матча</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/matches">Matches</a>
+        </nav>
+    </header>
+    <div class="container">
+        <form action="/match-score" method="POST">
+            <input type="hidden" name="uuid" value="{{ uuid }}">
+            <table>
+                <thead>
+                    <tr>
+                        <td>Игрок</td>
+                        <td>Сетов</td>
+                        <td>Геймов</td>
+                        <td>Очков</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="player1">
+                        <td>{{name1}}</td>
+                        <td>{{sets1}}</td>
+                        <td>{{games1}}</td>
+                        <td>{{points1}}</td>
+                        <td>
+                            <button type="submit" name="player" value="1">Игрок 1 выиграл очко</button>
+                        </td>
+                    </tr>
+                    <tr class="player2">
+                        <td>{{name2}}</td>
+                        <td>{{sets2}}</td>
+                        <td>{{games2}}</td>
+                        <td>{{points2}}</td>
+                        <td>
+                            <button type="submit" name="player" value="2">Игрок 2 выиграл очко</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="buttons-container">
+                <button type="submit" name="player" value="1">Игрок 1 выиграл очко</button>
+                <button type="submit" name="player" value="2">Игрок 2 выиграл очко</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
