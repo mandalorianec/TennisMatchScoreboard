@@ -1,7 +1,11 @@
+import os
 from logging.config import fileConfig
+from pathlib import Path
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
+from urllib.parse import quote_plus
+from dotenv import load_dotenv
 from src.database.models.match import Match # noqa
 from src.database.models.player import Player # noqa
 from tennis_match_scoreboard.src.database.db import Base
@@ -9,8 +13,21 @@ from alembic import context
 
 config = context.config
 
+env_path = Path(__file__).resolve().parents[2] / '.env'
+load_dotenv(dotenv_path=env_path)
+
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+user = os.getenv("USERNAME_DB", "")
+pwd = os.getenv("PASSWORD_DB", "")
+host = os.getenv("DB_HOST", "localhost")
+name = os.getenv("DB_NAME", "")
+driver = os.getenv("DB_DRIVER", "mysql+pymysql")
+pwd_enc = quote_plus(pwd) if pwd else ""
+database_url = f"{driver}://{user}:{pwd_enc}@{host}/{name}"
+
+config.set_main_option("sqlalchemy.url", database_url)
 
 target_metadata = Base.metadata
 
