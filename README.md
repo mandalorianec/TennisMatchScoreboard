@@ -78,6 +78,7 @@ poetry env activate
 alembic -c alembic.ini upgrade head
 ```
 
+7) запустить файл **main.py**
 
 ### Запуск тестов
 из директории проекта: \tennis_match_scoreboard>
