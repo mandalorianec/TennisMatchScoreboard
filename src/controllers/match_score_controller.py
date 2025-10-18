@@ -1,10 +1,10 @@
-from tennis_match_scoreboard.src.controllers.controller import Controller
-from tennis_match_scoreboard.src.dao.players_dao import PlayersDao
-from tennis_match_scoreboard.src.dto.request_dto import RequestDTO
-from tennis_match_scoreboard.src.dto.response_dto import ResponseDto
+from src.controllers.controller import Controller
+from src.dao.players_dao import PlayersDao
+from src.dto.request_dto import RequestDTO
+from src.dto.response_dto import ResponseDto
 from src.utils.render import Render
-from tennis_match_scoreboard.src.service.ongoing_match_service import going_match_service
-from tennis_match_scoreboard.src.service.match_score_service import MatchCounterService
+from src.service.ongoing_match_service import going_match_service
+from src.service.match_score_service import MatchCounterService
 from src.utils.score_formatter import ScoreFormatter, FormattedScoreDto
 
 

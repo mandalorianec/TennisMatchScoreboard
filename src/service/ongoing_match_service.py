@@ -1,8 +1,8 @@
 import uuid
-from tennis_match_scoreboard.src.dto.going_match_dto import GoingMatchDto
-from tennis_match_scoreboard.src.dto.score_dto import ScoreDto
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
-from tennis_match_scoreboard.src.dao.matches_dao import MatchesDao
+from src.dto.going_match_dto import GoingMatchDto
+from src.dto.score_dto import ScoreDto
+from src.dto.player_score_dto import PlayerScoreDto
+from src.dao.matches_dao import MatchesDao
 
 
 class OngoingMatchService:

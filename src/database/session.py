@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 
-from tennis_match_scoreboard.src.database.db import session_local
+from src.database.db import session_local
 
 
 @contextmanager

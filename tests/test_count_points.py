@@ -1,12 +1,12 @@
 import unittest
 
-from tennis_match_scoreboard.src.dto.score_dto import ScoreDto
-from tennis_match_scoreboard.src.service.match_score_service import MatchCounterService
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
+from src.dto.score_dto import ScoreDto
+from src.service.match_score_service import MatchCounterService
+from src.dto.player_score_dto import PlayerScoreDto
 from src.utils.score_formatter import ScoreFormatter
 
 
-# запуск \TennisMatchScoreboard> python -m unittest discover -s tennis_match_scoreboard\tests -p "test_*.py" -v
+# запуск \tennis_match_scoreboard> python -m unittest discover -s tests -p "test_*.py" -v
 
 
 def _is_tie_break(player1_score: PlayerScoreDto, player2_score: PlayerScoreDto):

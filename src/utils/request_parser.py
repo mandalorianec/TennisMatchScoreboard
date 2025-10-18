@@ -1,5 +1,5 @@
 from typing import Mapping
-from tennis_match_scoreboard.src.dto.request_dto import RequestDTO
+from src.dto.request_dto import RequestDTO
 from urllib.parse import parse_qs
 
 

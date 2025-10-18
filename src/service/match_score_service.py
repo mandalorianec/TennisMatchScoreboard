@@ -1,8 +1,8 @@
 from typing import Optional
 
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
-from tennis_match_scoreboard.src.dto.score_dto import ScoreDto
-from tennis_match_scoreboard.src.service.tennis_set import Set
+from src.dto.player_score_dto import PlayerScoreDto
+from src.dto.score_dto import ScoreDto
+from src.service.tennis_set import Set
 
 
 class MatchCounterService:

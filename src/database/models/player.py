@@ -1,4 +1,4 @@
-from tennis_match_scoreboard.src.database.db import Base
+from src.database.db import Base
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import String, Integer
 from sqlalchemy.orm import Mapped

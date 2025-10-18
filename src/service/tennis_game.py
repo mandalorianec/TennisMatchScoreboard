@@ -1,6 +1,6 @@
 from typing import Optional
 
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
+from src.dto.player_score_dto import PlayerScoreDto
 
 
 class Game:

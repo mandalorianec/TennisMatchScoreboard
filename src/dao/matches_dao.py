@@ -1,15 +1,15 @@
 import json
 from sqlalchemy.orm import Query
-from tennis_match_scoreboard.src.dto.page_content_dto import PageContentDto
-from tennis_match_scoreboard.src.dto.score_dto import ScoreDto
-from tennis_match_scoreboard.src.service.pagination_service import PaginationService
-from tennis_match_scoreboard.src.service.ongoing_match_service import GoingMatchDto
+from src.dto.page_content_dto import PageContentDto
+from src.dto.score_dto import ScoreDto
+from src.service.pagination_service import PaginationService
+from src.service.ongoing_match_service import GoingMatchDto
 from sqlalchemy.orm import joinedload
 from sqlalchemy import or_
-from tennis_match_scoreboard.src.database.models.player import Player
-from tennis_match_scoreboard.src.database.models.match import Match
+from src.database.models.player import Player
+from src.database.models.match import Match
 from src.utils.score_formatter import ScoreFormatter
-from tennis_match_scoreboard.src.database.session import get_db
+from src.database.session import get_db
 
 
 class MatchesDao:

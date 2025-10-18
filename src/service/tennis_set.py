@@ -1,8 +1,8 @@
 from typing import Optional
 
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
-from tennis_match_scoreboard.src.service.tennis_game import Game
-from tennis_match_scoreboard.src.service.tie_break import TieBreak
+from src.dto.player_score_dto import PlayerScoreDto
+from src.service.tennis_game import Game
+from src.service.tie_break import TieBreak
 
 
 class Set:

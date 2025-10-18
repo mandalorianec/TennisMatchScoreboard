@@ -1,6 +1,6 @@
-from tennis_match_scoreboard.src.controllers.controller import Controller
-from tennis_match_scoreboard.src.dto.request_dto import RequestDTO
-from tennis_match_scoreboard.src.dto.response_dto import ResponseDto
+from src.controllers.controller import Controller
+from src.dto.request_dto import RequestDTO
+from src.dto.response_dto import ResponseDto
 from src.utils.render import Render
 
 

@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Query
 import math
-from tennis_match_scoreboard.src.dto.match_dto import MatchDto
-from tennis_match_scoreboard.src.dto.page_content_dto import PageContentDto
+from src.dto.match_dto import MatchDto
+from src.dto.page_content_dto import PageContentDto
 
 
 class PaginationService:

@@ -1,5 +1,5 @@
-from tennis_match_scoreboard.src.dto.request_dto import RequestDTO
-from tennis_match_scoreboard.src.exceptions.own_exceptions import UnsupportedMethodException
+from src.dto.request_dto import RequestDTO
+from src.exceptions.own_exceptions import UnsupportedMethodException
 
 
 class Controller:

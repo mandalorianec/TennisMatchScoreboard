@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from tennis_match_scoreboard.src.dto.match_dto import MatchDto
+from src.dto.match_dto import MatchDto
 
 
 @dataclass

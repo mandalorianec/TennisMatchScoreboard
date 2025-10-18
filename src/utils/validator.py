@@ -1,4 +1,4 @@
-from tennis_match_scoreboard.src.exceptions.own_exceptions import ValidationException
+from src.exceptions.own_exceptions import ValidationException
 
 
 class Validator:

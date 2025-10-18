@@ -1,8 +1,8 @@
 from typing import Optional
 
 from sqlalchemy import func
-from tennis_match_scoreboard.src.database.session import get_db
-from tennis_match_scoreboard.src.database.models.player import Player
+from src.database.session import get_db
+from src.database.models.player import Player
 
 
 class PlayersDao:

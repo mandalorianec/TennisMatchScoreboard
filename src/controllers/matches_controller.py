@@ -1,9 +1,9 @@
-from tennis_match_scoreboard.src.controllers.controller import Controller
-from tennis_match_scoreboard.src.dao.matches_dao import MatchesDao
-from tennis_match_scoreboard.src.dto.match_dto import MatchDto
-from tennis_match_scoreboard.src.dto.page_content_dto import PageContentDto
-from tennis_match_scoreboard.src.dto.request_dto import RequestDTO
-from tennis_match_scoreboard.src.dto.response_dto import ResponseDto
+from src.controllers.controller import Controller
+from src.dao.matches_dao import MatchesDao
+from src.dto.match_dto import MatchDto
+from src.dto.page_content_dto import PageContentDto
+from src.dto.request_dto import RequestDTO
+from src.dto.response_dto import ResponseDto
 from src.utils.render import Render
 
 

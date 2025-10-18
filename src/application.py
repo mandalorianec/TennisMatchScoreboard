@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Mapping
 
-from tennis_match_scoreboard.src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
+from src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
 from src.utils.render import Render
 from src.utils.request_parser import RequestParser
 from src.routing.router import Router

@@ -1,4 +1,5 @@
 import os
+import sys
 from logging.config import fileConfig
 from pathlib import Path
 
@@ -8,11 +9,11 @@ from urllib.parse import quote_plus
 from dotenv import load_dotenv
 from src.database.models.match import Match # noqa
 from src.database.models.player import Player # noqa
-from tennis_match_scoreboard.src.database.db import Base
+from src.database.db import Base
 from alembic import context
 
 config = context.config
-
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 env_path = Path(__file__).resolve().parents[2] / '.env'
 load_dotenv(dotenv_path=env_path)
 

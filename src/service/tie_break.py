@@ -1,5 +1,5 @@
-from tennis_match_scoreboard.src.dto.player_score_dto import PlayerScoreDto
-from tennis_match_scoreboard.src.service.tennis_game import Game
+from src.dto.player_score_dto import PlayerScoreDto
+from src.service.tennis_game import Game
 
 
 class TieBreak(Game):
