@@ -13,7 +13,7 @@ class MatchesController(Controller):
         filter_by_player_name = request_dto.query_params.get("filter_by_player_name", " ")[0].strip().lower()
         dao = MatchesDao()
         page_content = dao.get_matches(page=page, player_name=filter_by_player_name)
-        if page_content.current_page != page:
+        if page_content.current_page != page: # редирект на последнюю страницу
             return ResponseDto('302 Found',
                                [('Location',
                                  f'/matches?page={page_content.current_page}&filter_by_player_name={filter_by_player_name}')],

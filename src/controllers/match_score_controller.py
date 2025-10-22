@@ -22,9 +22,9 @@ class MatchScoreController(Controller):
 
         name1 = dao.get_player_name_by(match.player1_id)
         name2 = dao.get_player_name_by(match.player2_id)
-        score = match.score
+        match_score = match.score
         formatter = ScoreFormatter()
-        formatted_score = formatter.format(score, score.player1.games == score.player2.games == 6)
+        formatted_score = formatter.format(match_score, match_score.player1.games == match_score.player2.games == 6)
         context = self.get_context(uuid, name1, name2, formatted_score)
 
         rendered_html = self.render.render_template("match-score.html", context)
