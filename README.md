@@ -42,7 +42,7 @@ cd TennisMatchScoreboard\tennis_match_scoreboard
 
 Инструкция по созданию и настройки базы данных MySQL
 
-1. Устновка MySQL
+## Устновка MySQL
 
 1) Скачать MySQL Installer
 2) Установить MySQL Community Server, задать root-пароль и запомнить его

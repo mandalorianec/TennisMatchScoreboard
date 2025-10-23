@@ -1,4 +1,6 @@
 import json
+from dataclasses import asdict
+
 from sqlalchemy.orm import Query
 from src.dto.page_content_dto import PageContentDto
 from src.dto.score_dto import ScoreDto
@@ -13,15 +15,16 @@ from src.database.session import get_db
 
 
 class MatchesDao:
-    def add_finished_match(self, match: GoingMatchDto, winner_id: int) -> None:
+    @staticmethod
+    def add_finished_match(match: GoingMatchDto, winner_id: int) -> None:
         with get_db() as db:
-            formatted_score = self._format_score(match.score)
+            # formatted_score = self._format_score(match.score)
             finished_match = Match(
                 uuid=match.uuid,
                 player1_id=match.player1.id,
                 player2_id=match.player2.id,
                 winner=winner_id,
-                score=json.dumps(formatted_score)
+                score=json.dumps(asdict(match.score))
             )
             db.add(finished_match)
 
@@ -32,23 +35,23 @@ class MatchesDao:
         paginator = PaginationService()
         return paginator.paginate(query, page)
 
-    @staticmethod
-    def _format_score(score: ScoreDto) -> dict:
-        formatter = ScoreFormatter()
-        formatted = formatter.format(score, score.player1.games == score.player2.games == 6)
-
-        return {
-            "player1": {
-                "sets": formatted.player1.sets,
-                "games": formatted.player1.games,
-                "points": formatted.player1.points
-            },
-            "player2": {
-                "sets": formatted.player2.sets,
-                "games": formatted.player2.games,
-                "points": formatted.player2.points,
-            }
-        }
+    # @staticmethod
+    # def _format_score(score: ScoreDto) -> dict:
+    #     formatter = ScoreFormatter()
+    #     formatted = formatter.format(score, score.player1.games == score.player2.games == 6)
+    #
+    #     return {
+    #         "player1": {
+    #             "sets": formatted.player1.sets,
+    #             "games": formatted.player1.games,
+    #             "points": formatted.player1.points
+    #         },
+    #         "player2": {
+    #             "sets": formatted.player2.sets,
+    #             "games": formatted.player2.games,
+    #             "points": formatted.player2.points,
+    #         }
+    #     }
 
     @staticmethod
     def _build_matches_query(player_name: str) -> Query:

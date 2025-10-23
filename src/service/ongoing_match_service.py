@@ -19,7 +19,7 @@ class OngoingMatchService:
         player1_id, player2_id = self._get_players_id(players_dao, player1_name, player2_name)
         random_uuid = str(uuid.uuid4())
         score = ScoreDto(PlayerScoreDto(), PlayerScoreDto())
-        # new_match = GoingMatchDto(player1_id, player2_id, random_uuid, score)
+
         new_match = GoingMatchDto(
             PlayerDto(player1_id, player1_name),
             PlayerDto(player2_id, player2_name),
