@@ -10,7 +10,7 @@ from src.dao.players_dao import PlayersDao
 from src.utils.render import Render
 
 
-class Containers(DeclarativeContainer):
+class Container(DeclarativeContainer):
     players_dao = providers.Singleton(PlayersDao)
     matches_dao = providers.Singleton(MatchesDao)
     render = providers.Singleton(Render)

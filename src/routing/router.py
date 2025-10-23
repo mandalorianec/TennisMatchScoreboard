@@ -1,10 +1,10 @@
 from src.dto.response_dto import ResponseDto
 from src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
-from src.containers import Containers
+from src.container import Container
 
 
 class Router:
-    def __init__(self, container: Containers):
+    def __init__(self, container: Container):
         self.container = container
         self._routes = {
             "/": self.container.IndexController,
