@@ -1,6 +1,6 @@
 from src.dto.response_dto import ResponseDto
 from src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
-from src.container import Container
+from src.utils.container import Container
 
 
 class Router:

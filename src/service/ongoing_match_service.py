@@ -1,6 +1,7 @@
 import uuid
 from src.dao.players_dao import PlayersDao
 from src.dto.going_match_dto import GoingMatchDto
+from src.dto.player_dto import PlayerDto
 from src.dto.score_dto import ScoreDto
 from src.dto.player_score_dto import PlayerScoreDto
 
@@ -18,7 +19,13 @@ class OngoingMatchService:
         player1_id, player2_id = self._get_players_id(players_dao, player1_name, player2_name)
         random_uuid = str(uuid.uuid4())
         score = ScoreDto(PlayerScoreDto(), PlayerScoreDto())
-        new_match = GoingMatchDto(player1_id, player2_id, random_uuid, score)
+        # new_match = GoingMatchDto(player1_id, player2_id, random_uuid, score)
+        new_match = GoingMatchDto(
+            PlayerDto(player1_id, player1_name),
+            PlayerDto(player2_id, player2_name),
+            random_uuid,
+            score
+        )
         self.going_matchs[random_uuid] = new_match
         return random_uuid
 

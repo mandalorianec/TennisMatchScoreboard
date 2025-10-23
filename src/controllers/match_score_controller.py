@@ -19,11 +19,13 @@ class MatchScoreController(Controller):
         except KeyError:
             return self._handle_exception('400 Bad request', "Матч с таким uuid не существует или уже завершён")
 
-        name1 = self.players_dao.get_player_name_by(match.player1_id)
-        name2 = self.players_dao.get_player_name_by(match.player2_id)
+        name1 = match.player1.name
+        name2 = match.player2.name
         match_score = match.score
+
         formatter = ScoreFormatter()
         formatted_score = formatter.format(match_score, match_score.player1.games == match_score.player2.games == 6)
+
         context = self.get_context(uuid, name1, name2, formatted_score)
 
         rendered_html = self.render.render_template("match-score.html", context)
@@ -45,9 +47,9 @@ class MatchScoreController(Controller):
         going_match_service.update_match_score(uuid, score)
         if match_winner:
             if match_winner == 1:
-                match_winner_id = match.player1_id
+                match_winner_id = match.player1.id
             else:
-                match_winner_id = match.player2_id
+                match_winner_id = match.player2.id
             going_match_service.finish_match(self.matches_dao, uuid, match_winner_id)
             return ResponseDto('303 See Other', [('Location', f'/matches')], '')
         return ResponseDto('303 See Other', [('Location', f'/match-score?uuid={uuid}')], '')

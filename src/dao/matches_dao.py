@@ -18,8 +18,8 @@ class MatchesDao:
             formatted_score = self._format_score(match.score)
             finished_match = Match(
                 uuid=match.uuid,
-                player1_id=match.player1_id,
-                player2_id=match.player2_id,
+                player1_id=match.player1.id,
+                player2_id=match.player2.id,
                 winner=winner_id,
                 score=json.dumps(formatted_score)
             )

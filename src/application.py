@@ -6,7 +6,7 @@ from src.utils.render import Render
 from src.utils.request_parser import RequestParser
 from src.routing.router import Router
 from src.utils.logger import get_logger, setup_logging
-from container import Container
+from src.utils.container import Container
 
 setup_logging()
 logger = get_logger()
