@@ -1,27 +1,26 @@
 from src.controllers.controller import Controller
-from src.dao.players_dao import PlayersDao
 from src.dto.request_dto import RequestDTO
 from src.dto.response_dto import ResponseDto
-from src.utils.render import Render
 from src.service.ongoing_match_service import going_match_service
 from src.service.match_score_service import MatchCounterService
 from src.utils.score_formatter import ScoreFormatter, FormattedScoreDto
 
 
 class MatchScoreController(Controller):
-    def __init__(self):
-        self.render = Render()
+    def __init__(self, render, players_dao, matches_dao):
+        self.render = render
+        self.players_dao = players_dao
+        self.matches_dao = matches_dao
 
     def handle_get(self, request_dto: RequestDTO) -> ResponseDto:
-        dao = PlayersDao()
         uuid = request_dto.query_params.get("uuid", " ")[0]
         try:
             match = going_match_service.get_local_match_by(uuid)
         except KeyError:
             return self._handle_exception('400 Bad request', "Матч с таким uuid не существует или уже завершён")
 
-        name1 = dao.get_player_name_by(match.player1_id)
-        name2 = dao.get_player_name_by(match.player2_id)
+        name1 = self.players_dao.get_player_name_by(match.player1_id)
+        name2 = self.players_dao.get_player_name_by(match.player2_id)
         match_score = match.score
         formatter = ScoreFormatter()
         formatted_score = formatter.format(match_score, match_score.player1.games == match_score.player2.games == 6)
@@ -49,7 +48,7 @@ class MatchScoreController(Controller):
                 match_winner_id = match.player1_id
             else:
                 match_winner_id = match.player2_id
-            going_match_service.finish_match(uuid, match_winner_id)
+            going_match_service.finish_match(self.matches_dao, uuid, match_winner_id)
             return ResponseDto('303 See Other', [('Location', f'/matches')], '')
         return ResponseDto('303 See Other', [('Location', f'/match-score?uuid={uuid}')], '')
 

@@ -1,25 +1,23 @@
-from src.controllers.match_score_controller import MatchScoreController
-from src.controllers.new_match_controller import NewMatchController
-from src.controllers.index_controller import IndexController
-from src.controllers.matches_controller import MatchesController
 from src.dto.response_dto import ResponseDto
 from src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
+from src.containers import Containers
 
 
 class Router:
-    _routers = {
-        "/": IndexController,
-        "/new-match": NewMatchController,
-        "/match-score": MatchScoreController,
-        "/matches": MatchesController,
-    }
+    def __init__(self, container: Containers):
+        self.container = container
+        self._routes = {
+            "/": self.container.IndexController,
+            "/new-match": self.container.NewMatchController,
+            "/match-score": self.container.MatchScoreController,
+            "/matches": self.container.MatchesController,
+        }
 
-    @staticmethod
-    def find_controller(path: str):
-        handler = Router._routers.get(path)
+    def find_controller(self, path: str):
+        handler = self._routes.get(path)
         if not handler:
             raise ControllerNotFoundException(f"Страница {path} не найдена")
-        return handler
+        return handler()
 
     @staticmethod
     def perform(controller, request_dto) -> ResponseDto:

@@ -6,6 +6,7 @@ from src.utils.render import Render
 from src.utils.request_parser import RequestParser
 from src.routing.router import Router
 from src.utils.logger import get_logger, setup_logging
+from containers import Containers
 
 setup_logging()
 logger = get_logger()
@@ -22,6 +23,8 @@ class Application:
             ('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'),
             ('Access-Control-Allow-Headers', 'Content-Type')
         ]
+        self.containers = Containers()
+        self.router = Router(self.containers)
         logger.info("init app")
 
     def __call__(self, environ: Mapping[str, str], start_response):
@@ -66,10 +69,10 @@ class Application:
         if request_dto.method.upper() == 'OPTIONS':
             return self._handle_options(start_response)
 
-        controller = Router.find_controller(path_info)
+        controller = self.router.find_controller(path_info)
         logger.debug(f"Found controller for {path_info}")
 
-        response_dto = Router.perform(controller(), request_dto)
+        response_dto = Router.perform(controller, request_dto)
         logger.info(f"Response code: {response_dto.status}")
 
         start_response(response_dto.status, response_dto.headers)

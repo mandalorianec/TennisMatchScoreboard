@@ -1,3 +1,5 @@
+from src.dao.matches_dao import MatchesDao
+from src.dao.players_dao import PlayersDao
 from src.dto.request_dto import RequestDTO
 from src.exceptions.own_exceptions import UnsupportedMethodException
 
