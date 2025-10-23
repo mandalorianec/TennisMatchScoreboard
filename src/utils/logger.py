@@ -8,7 +8,7 @@ def setup_logging():
     """Настройка логирования для всего приложения"""
 
     # Создаем папку для логов если ее нет
-    log_dir = Path(__file__).parent / "logs"
+    log_dir = Path(__file__).parent.parent.parent / "logs"
     log_dir.mkdir(exist_ok=True)
 
     # Проверяем флаг отключения логирования
