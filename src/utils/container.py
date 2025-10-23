@@ -23,7 +23,6 @@ class Container(DeclarativeContainer):
     MatchScoreController = providers.Factory(
         MatchScoreController,
         render=render,
-        players_dao=players_dao,
         matches_dao=matches_dao,
     )
 

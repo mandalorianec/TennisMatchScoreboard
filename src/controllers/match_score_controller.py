@@ -7,9 +7,8 @@ from src.utils.score_formatter import ScoreFormatter, FormattedScoreDto
 
 
 class MatchScoreController(Controller):
-    def __init__(self, render, players_dao, matches_dao):
+    def __init__(self, render, matches_dao):
         self.render = render
-        self.players_dao = players_dao
         self.matches_dao = matches_dao
 
     def handle_get(self, request_dto: RequestDTO) -> ResponseDto:
