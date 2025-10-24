@@ -1,5 +1,4 @@
 from src.controllers.controller import Controller
-from src.dao.matches_dao import MatchesDao
 from src.dto.match_dto import MatchDto
 from src.dto.page_content_dto import PageContentDto
 from src.dto.request_dto import RequestDTO

@@ -3,14 +3,12 @@ from dataclasses import asdict
 
 from sqlalchemy.orm import Query
 from src.dto.page_content_dto import PageContentDto
-from src.dto.score_dto import ScoreDto
 from src.service.pagination_service import PaginationService
 from src.service.ongoing_match_service import GoingMatchDto
 from sqlalchemy.orm import joinedload
 from sqlalchemy import or_
 from src.database.models.player import Player
 from src.database.models.match import Match
-from src.utils.score_formatter import ScoreFormatter
 from src.database.session import get_db
 
 
@@ -18,7 +16,6 @@ class MatchesDao:
     @staticmethod
     def add_finished_match(match: GoingMatchDto, winner_id: int) -> None:
         with get_db() as db:
-            # formatted_score = self._format_score(match.score)
             finished_match = Match(
                 uuid=match.uuid,
                 player1_id=match.player1.id,
@@ -34,24 +31,6 @@ class MatchesDao:
 
         paginator = PaginationService()
         return paginator.paginate(query, page)
-
-    # @staticmethod
-    # def _format_score(score: ScoreDto) -> dict:
-    #     formatter = ScoreFormatter()
-    #     formatted = formatter.format(score, score.player1.games == score.player2.games == 6)
-    #
-    #     return {
-    #         "player1": {
-    #             "sets": formatted.player1.sets,
-    #             "games": formatted.player1.games,
-    #             "points": formatted.player1.points
-    #         },
-    #         "player2": {
-    #             "sets": formatted.player2.sets,
-    #             "games": formatted.player2.games,
-    #             "points": formatted.player2.points,
-    #         }
-    #     }
 
     @staticmethod
     def _build_matches_query(player_name: str) -> Query:

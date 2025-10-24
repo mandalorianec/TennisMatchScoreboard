@@ -53,15 +53,14 @@ cd TennisMatchScoreboard\tennis_match_scoreboard
 mysql -u root -p -e "CREATE DATABASE db CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci; CREATE USER 'login'@'localhost' IDENTIFIED BY 'pwd'; GRANT ALL PRIVILEGES ON db.* TO 'login'@'localhost'; FLUSH PRIVILEGES;"   
 ```
 
-4) Создайте и настройте .env в корне проекта: tennis_match_scoreboard/.env. Можно сделать бд более гибкой, используя
-   закомментированные переменные. Для простоты оставил только необходимые.
+4) Создайте и настройте .env в корне проекта: tennis_match_scoreboard/.env.
 
 ```
 USERNAME_DB=login
 PASSWORD_DB=pwd
-; DB_HOST=localhost
-; DB_NAME=db
-; DB_DRIVER=mysql+pymysql
+DB_HOST=localhost
+DB_NAME=db
+DB_DRIVER=mysql+pymysql
 DISABLE_LOGGING=false
 ```
 
