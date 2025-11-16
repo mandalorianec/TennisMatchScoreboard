@@ -15,24 +15,24 @@ class Container(DeclarativeContainer):
     matches_dao = providers.Singleton(MatchesDao)
     render = providers.Singleton(Render)
 
-    IndexController = providers.Factory(
+    index_contoller = providers.Factory(
         IndexController,
         render=render
     )
 
-    MatchScoreController = providers.Factory(
+    match_score_controller = providers.Factory(
         MatchScoreController,
         render=render,
         matches_dao=matches_dao,
     )
 
-    MatchesController = providers.Factory(
+    matches_controller = providers.Factory(
         MatchesController,
         render=render,
         matches_dao=matches_dao,
     )
 
-    NewMatchController = providers.Factory(
+    new_match_controller = providers.Factory(
         NewMatchController,
         render=render,
         players_dao=players_dao,

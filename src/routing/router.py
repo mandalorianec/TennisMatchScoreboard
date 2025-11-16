@@ -7,10 +7,10 @@ class Router:
     def __init__(self, container: Container):
         self.container = container
         self._routes = {
-            "/": self.container.IndexController,
-            "/new-match": self.container.NewMatchController,
-            "/match-score": self.container.MatchScoreController,
-            "/matches": self.container.MatchesController,
+            "/": self.container.index_contoller,
+            "/new-match": self.container.new_match_controller,
+            "/match-score": self.container.match_score_controller,
+            "/matches": self.container.matches_controller,
         }
 
     def find_controller(self, path: str):

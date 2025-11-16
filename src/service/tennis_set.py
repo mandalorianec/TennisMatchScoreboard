@@ -5,7 +5,7 @@ from src.service.tennis_game import Game
 from src.service.tie_break import TieBreak
 
 
-class Set:
+class TennisSet:
     def __init__(self, player1: PlayerScoreDto, player2: PlayerScoreDto):
         self.player1 = player1
         self.player2 = player2

@@ -2,14 +2,14 @@ from typing import Optional
 
 from src.dto.player_score_dto import PlayerScoreDto
 from src.dto.score_dto import ScoreDto
-from src.service.tennis_set import Set
+from src.service.tennis_set import TennisSet
 
 
 class MatchCounterService:
     def __init__(self, player1: PlayerScoreDto, player2: PlayerScoreDto):
         self.player1 = player1
         self.player2 = player2
-        self.current_set = Set(self.player1, self.player2)
+        self.current_set = TennisSet(self.player1, self.player2)
 
     def add_point_to(self, player_number: int) -> Optional[int]:
         winner_set_number = self.current_set.add_point_to(player_number)
@@ -27,7 +27,7 @@ class MatchCounterService:
         else:
             self.player2.sets += 1
         self._reset_games()
-        self.current_set = Set(self.player1, self.player2)
+        self.current_set = TennisSet(self.player1, self.player2)
 
     def _reset_games(self) -> None:
         self.player1.games = 0
