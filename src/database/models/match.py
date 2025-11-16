@@ -7,7 +7,6 @@ from sqlalchemy.orm import Mapped
 class Match(Base):
     __tablename__ = "matches_table"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     uuid: Mapped[str] = mapped_column(String(36), unique=True)
     player1_id: Mapped[int] = mapped_column(Integer, ForeignKey("players_table.id"))
     player2_id: Mapped[int] = mapped_column(Integer, ForeignKey("players_table.id"))

@@ -1,5 +1,5 @@
 from wsgiref.simple_server import make_server
-from application import app
+from src.application import app
 from src.utils.logger import get_logger
 
 HOST, PORT = '127.0.0.1', 5500

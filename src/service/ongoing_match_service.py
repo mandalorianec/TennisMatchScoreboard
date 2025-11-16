@@ -30,7 +30,7 @@ class OngoingMatchService:
         return random_uuid
 
     def get_local_match_by(self, uuid_match: str) -> GoingMatchDto:
-        return self.going_matchs[uuid_match]
+        return self.going_matchs.get(uuid_match)
 
     def update_match_score(self, uuid_match: str, new_score: ScoreDto) -> None:
         self.going_matchs[uuid_match].score = new_score
@@ -40,7 +40,7 @@ class OngoingMatchService:
         self.going_matchs.pop(uuid_match)
 
     @staticmethod
-    def _get_players_id(dao: PlayersDao, player1_name: str, player2_name: str) -> (int, int):
+    def _get_players_id(dao: PlayersDao, player1_name: str, player2_name: str) -> tuple[int, int]:
         player1_id = dao.get_player_id_by(player1_name)
         player2_id = dao.get_player_id_by(player2_name)
         return player1_id, player2_id

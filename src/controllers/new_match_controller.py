@@ -16,6 +16,8 @@ class NewMatchController(Controller):
         return ResponseDto('200 OK', [('Content-Type', 'text/html')], rendered_html)
 
     def handle_post(self, request_dto: RequestDTO) -> ResponseDto:
+        if not isinstance(request_dto.body_params, dict):
+            return self._handle_exception('400 Bad request', 'Не удалось извлечь данные из тела запроса')
         try:
             player1_name = self._get_validated_player_name(request_dto.body_params["player1"][0])
             player2_name = self._get_validated_player_name(request_dto.body_params["player2"][0])

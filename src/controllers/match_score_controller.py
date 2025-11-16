@@ -32,11 +32,14 @@ class MatchScoreController(Controller):
 
     def handle_post(self, request_dto: RequestDTO) -> ResponseDto:
         uuid = request_dto.body_params.get("uuid", " ")[0]
+        if not isinstance(request_dto.body_params, dict):
+            return self._handle_exception('400 Bad request', 'Не удалось извлечь данные из тела запроса')
         player_number = int(request_dto.body_params.get("player", " ")[0])
+
         try:
             match = going_match_service.get_local_match_by(uuid)
         except KeyError:
-            return ResponseDto('303 See Other', [('Location', f'/matches')], '')
+            return ResponseDto('303 See Other', [('Location', '/matches')], '')
         match_score = match.score
         match_service = MatchCounterService(match_score.player1, match_score.player2)
         match_winner = match_service.add_point_to(player_number)
@@ -50,7 +53,7 @@ class MatchScoreController(Controller):
             else:
                 match_winner_id = match.player2.id
             going_match_service.finish_match(self.matches_dao, uuid, match_winner_id)
-            return ResponseDto('303 See Other', [('Location', f'/matches')], '')
+            return ResponseDto('303 See Other', [('Location', '/matches')], '')
         return ResponseDto('303 See Other', [('Location', f'/match-score?uuid={uuid}')], '')
 
     @staticmethod

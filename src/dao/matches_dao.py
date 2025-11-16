@@ -33,7 +33,7 @@ class MatchesDao:
         return paginator.paginate(query, page)
 
     @staticmethod
-    def _build_matches_query(player_name: str) -> Query:
+    def _build_matches_query(player_name: str | None) -> Query:
         with get_db() as db:
             query = db.query(Match).options(
                 joinedload(Match.player1),
