@@ -1,7 +1,7 @@
 import logging
 import logging.config
-import os
 from pathlib import Path
+from src.config import disable_loging
 
 
 def setup_logging():
@@ -12,7 +12,7 @@ def setup_logging():
     log_dir.mkdir(exist_ok=True)
 
     # Проверяем флаг отключения логирования
-    if os.getenv('DISABLE_LOGGING', 'false').lower() == 'true':
+    if disable_loging.lower() == 'true':
         logging.getLogger().setLevel(logging.CRITICAL)
         return
 

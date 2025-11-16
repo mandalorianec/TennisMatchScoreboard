@@ -1,14 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
-import os
-from dotenv import load_dotenv
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy import Integer
-
-load_dotenv()
-user = os.getenv("USERNAME_DB")
-password = os.getenv("PASSWORD_DB")
+from src.config import user, password
 
 mysql_database = f"mysql+pymysql://{user}:{password}@localhost/db"
 

@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Mapping
 from dotenv import load_dotenv
 import os
-
+from src.config import allow_origins_env
 from src.dto.response_dto import ResponseDto
 from src.exceptions.own_exceptions import ControllerNotFoundException, UnsupportedMethodException
 from src.utils.render import Render
@@ -25,6 +25,7 @@ class Application:
         self.allowed_origins = self._make_allowed_origins()
         self.containers = Container()
         self.router = Router(self.containers)
+
         logger.info("init app")
 
     def __call__(self, environ: Mapping[str, str], start_response):
@@ -95,7 +96,6 @@ class Application:
 
     @staticmethod
     def _make_allowed_origins():
-        allow_origins_env = os.getenv("ALLOW_ORIGINS")
         if allow_origins_env:
             return [origin.strip() for origin in allow_origins_env.split(',')]
 

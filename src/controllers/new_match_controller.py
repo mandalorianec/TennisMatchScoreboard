@@ -1,13 +1,15 @@
+from src.config import min_len_name, max_len_name
 from src.controllers.controller import Controller
+from src.dao.players_dao import PlayersDao
 from src.dto.request_dto import RequestDTO
 from src.dto.response_dto import ResponseDto
 from src.exceptions.own_exceptions import ValidationException
 from src.service.ongoing_match_service import going_match_service
-from src.utils.validator import Validator
+from src.utils.render import Render
 
 
 class NewMatchController(Controller):
-    def __init__(self, render, players_dao):
+    def __init__(self, render: Render, players_dao: PlayersDao):
         self.render = render
         self.players_dao = players_dao
 
@@ -36,9 +38,15 @@ class NewMatchController(Controller):
         # тут редирект на /match-score?uuid=$match_uuid
         return ResponseDto('302 OK', [('Location', redirect_link)], '')
 
-    @staticmethod
-    def _get_validated_player_name(player_name: str) -> str:
-        Validator.validate_player_name(player_name)
+    def _get_validated_player_name(self, player_name: str) -> str:
+        if not isinstance(player_name, str):
+            raise ValidationException("Имя должно быть строкой")
+        player_name = player_name.strip()
+
+        if len(player_name) < int(min_len_name) or len(player_name) > int(max_len_name):
+            raise ValidationException(f"Длина имени должна быть минимум {min_len_name} и не превышать {max_len_name}")
+        if not player_name.isalpha():
+            raise ValidationException("Строка должна содержать только буквенные символы")
         return player_name.strip().lower()
 
     def _handle_exception(self, error_code: str, error_message: str):

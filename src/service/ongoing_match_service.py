@@ -13,13 +13,16 @@ class OngoingMatchService:
     def __init__(self):
         self.going_matchs = {}
 
-    def add_match_local(self, players_dao: PlayersDao, player1_name: str, player2_name: str) -> uuid.uuid4:
+    def add_match_local(self, players_dao: PlayersDao, player1_name: str, player2_name: str) -> uuid.UUID:
         if not players_dao.is_player_exist(player1_name):
             players_dao.add_new_player(player1_name)
         if not players_dao.is_player_exist(player2_name):
             players_dao.add_new_player(player2_name)
 
-        player1_id, player2_id = self._get_players_id(players_dao, player1_name, player2_name)
+        player1_id = players_dao.get_player_id_by(player1_name)
+        player2_id = players_dao.get_player_id_by(player2_name)
+        if player1_id is None or player2_id is None:
+            raise ValueError(f"Игрок с именем {player1_name if player1_id is None else player2_name} не найден")
         random_uuid = uuid.uuid4()
         score = ScoreDto(PlayerScoreDto(), PlayerScoreDto())
 
@@ -32,10 +35,10 @@ class OngoingMatchService:
         self.going_matchs[random_uuid] = new_match
         return random_uuid
 
-    def get_local_match_by(self, uuid_match: uuid.uuid4) -> GoingMatchDto:
+    def get_local_match_by(self, uuid_match: uuid.UUID) -> GoingMatchDto:
         return self.going_matchs.get(uuid_match)
 
-    def update_match_score(self, uuid_match: uuid.uuid4, new_score: ScoreDto) -> None:
+    def update_match_score(self, uuid_match: uuid.UUID, new_score: ScoreDto) -> None:
         self.going_matchs[uuid_match].score = new_score
 
     def finish_match(self, matches_dao, uuid_match: uuid.uuid4, winner_id: int) -> None:
@@ -44,11 +47,11 @@ class OngoingMatchService:
         matches_dao.add_finished_match(self.going_matchs[uuid_match], winner_id)
         self.going_matchs.pop(uuid_match)
 
-    @staticmethod
-    def _get_players_id(dao: PlayersDao, player1_name: str, player2_name: str) -> tuple[int, int]:
-        player1_id = dao.get_player_id_by(player1_name)
-        player2_id = dao.get_player_id_by(player2_name)
-        return player1_id, player2_id
+    # @staticmethod
+    # def _get_players_id(dao: PlayersDao, player1_name: str, player2_name: str) -> tuple[int, int]:
+    #     player1_id = dao.get_player_id_by(player1_name)
+    #     player2_id = dao.get_player_id_by(player2_name)
+    #     return player1_id, player2_id
 
 
 going_match_service = OngoingMatchService()

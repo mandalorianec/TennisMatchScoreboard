@@ -1,5 +1,3 @@
-import uuid
-
 from src.controllers.controller import Controller
 from src.dto.request_dto import RequestDTO
 from src.dto.response_dto import ResponseDto
@@ -15,7 +13,10 @@ class MatchScoreController(Controller):
         self.matches_dao = matches_dao
 
     def handle_get(self, request_dto: RequestDTO) -> ResponseDto:
-        uuid = UUID(request_dto.query_params.get("uuid", " ")[0])
+        try:
+            uuid = UUID(request_dto.query_params.get("uuid", " ")[0])
+        except ValueError:
+            return self._handle_exception('400 Bad request', "Некорректный формат UUID")
         match = going_match_service.get_local_match_by(uuid)
         if match is None:
             return self._handle_exception('400 Bad request', "Матч с таким uuid не существует или уже завершён")
@@ -33,7 +34,10 @@ class MatchScoreController(Controller):
         return ResponseDto('200 OK', [('Content-Type', 'text/html')], rendered_html)
 
     def handle_post(self, request_dto: RequestDTO) -> ResponseDto:
-        uuid = UUID(request_dto.body_params.get("uuid", " ")[0])
+        try:
+            uuid = UUID(request_dto.body_params.get("uuid", " ")[0])
+        except ValueError:
+            return self._handle_exception('400 Bad request', "Некорректный формат UUID")
         if not isinstance(request_dto.body_params, dict):
             return self._handle_exception('400 Bad request', 'Не удалось извлечь данные из тела запроса')
         player_number = int(request_dto.body_params.get("player", " ")[0])
@@ -76,3 +80,4 @@ class MatchScoreController(Controller):
         rendered_html = self.render.render_template("error.html", {"error_code": error_code,
                                                                    "error_message": error_message})
         return ResponseDto(error_code, [('Content-Type', 'text/html')], rendered_html)
+
