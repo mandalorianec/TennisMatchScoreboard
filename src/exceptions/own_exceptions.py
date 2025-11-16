@@ -17,3 +17,9 @@ class UnsupportedMethodException(OwnBaseException):
     def __init__(self, error_message: str):
         self.error_message = error_message
         self.error_code: str = "405 Method Not Allowed"
+
+
+class StringLimitException(OwnBaseException):
+    def __init__(self, error_message: str):
+        self.error_message = error_message
+        self.error_code: str = "413 Payload Too Large"

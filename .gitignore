@@ -192,3 +192,6 @@ log.txt
 .venv/
 .idea/
 .vscode/
+
+all_py_files.txt
+coll.py

@@ -1,9 +1,12 @@
 import uuid
+from dataclasses import asdict
+
 from src.dao.players_dao import PlayersDao
 from src.dto.going_match_dto import GoingMatchDto
 from src.dto.player_dto import PlayerDto
 from src.dto.score_dto import ScoreDto
 from src.dto.player_score_dto import PlayerScoreDto
+from src.exceptions.own_exceptions import StringLimitException
 
 
 class OngoingMatchService:
@@ -36,6 +39,8 @@ class OngoingMatchService:
         self.going_matchs[uuid_match].score = new_score
 
     def finish_match(self, matches_dao, uuid_match: str, winner_id: int) -> None:
+        if len(asdict(self.get_local_match_by(uuid_match).score)) > 250:
+            raise StringLimitException("Превышена длина счёта")
         matches_dao.add_finished_match(self.going_matchs[uuid_match], winner_id)
         self.going_matchs.pop(uuid_match)
 
