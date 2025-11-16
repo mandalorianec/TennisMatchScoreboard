@@ -18,6 +18,9 @@ class NewMatchController(Controller):
         return ResponseDto('200 OK', [('Content-Type', 'text/html')], rendered_html)
 
     def handle_post(self, request_dto: RequestDTO) -> ResponseDto:
+        if len(going_match_service.going_matchs.keys()) > 150:
+            return self._handle_exception("503 Service Unavailable",
+                                          "Сейчас идёт слишком много активных матчей, ожидайте")
         if not isinstance(request_dto.body_params, dict):
             return self._handle_exception('400 Bad request', 'Не удалось извлечь данные из тела запроса')
         try:
@@ -38,16 +41,17 @@ class NewMatchController(Controller):
         # тут редирект на /match-score?uuid=$match_uuid
         return ResponseDto('302 OK', [('Location', redirect_link)], '')
 
-    def _get_validated_player_name(self, player_name: str) -> str:
+    @staticmethod
+    def _get_validated_player_name(player_name: str) -> str:
         if not isinstance(player_name, str):
             raise ValidationException("Имя должно быть строкой")
         player_name = player_name.strip()
 
         if len(player_name) < int(min_len_name) or len(player_name) > int(max_len_name):
             raise ValidationException(f"Длина имени должна быть минимум {min_len_name} и не превышать {max_len_name}")
-        if not player_name.isalpha():
+        if not player_name.replace(' ', '').isalpha():
             raise ValidationException("Строка должна содержать только буквенные символы")
-        return player_name.strip().lower()
+        return player_name
 
     def _handle_exception(self, error_code: str, error_message: str):
         rendered_html = self.render.render_template("new-match.html", {"error": error_message})
