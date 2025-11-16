@@ -1,9 +1,12 @@
+import uuid
+
 from src.controllers.controller import Controller
 from src.dto.request_dto import RequestDTO
 from src.dto.response_dto import ResponseDto
 from src.service.ongoing_match_service import going_match_service
 from src.service.match_score_service import MatchCounterService
 from src.utils.score_formatter import ScoreFormatter, FormattedScoreDto
+from uuid import UUID
 
 
 class MatchScoreController(Controller):
@@ -12,10 +15,9 @@ class MatchScoreController(Controller):
         self.matches_dao = matches_dao
 
     def handle_get(self, request_dto: RequestDTO) -> ResponseDto:
-        uuid = request_dto.query_params.get("uuid", " ")[0]
-        try:
-            match = going_match_service.get_local_match_by(uuid)
-        except KeyError:
+        uuid = UUID(request_dto.query_params.get("uuid", " ")[0])
+        match = going_match_service.get_local_match_by(uuid)
+        if match is None:
             return self._handle_exception('400 Bad request', "Матч с таким uuid не существует или уже завершён")
 
         name1 = match.player1.name
@@ -31,14 +33,13 @@ class MatchScoreController(Controller):
         return ResponseDto('200 OK', [('Content-Type', 'text/html')], rendered_html)
 
     def handle_post(self, request_dto: RequestDTO) -> ResponseDto:
-        uuid = request_dto.body_params.get("uuid", " ")[0]
+        uuid = UUID(request_dto.body_params.get("uuid", " ")[0])
         if not isinstance(request_dto.body_params, dict):
             return self._handle_exception('400 Bad request', 'Не удалось извлечь данные из тела запроса')
         player_number = int(request_dto.body_params.get("player", " ")[0])
 
-        try:
-            match = going_match_service.get_local_match_by(uuid)
-        except KeyError:
+        match = going_match_service.get_local_match_by(uuid)
+        if match is None:
             return ResponseDto('303 See Other', [('Location', '/matches')], '')
         match_score = match.score
         match_service = MatchCounterService(match_score.player1, match_score.player2)
@@ -57,7 +58,7 @@ class MatchScoreController(Controller):
         return ResponseDto('303 See Other', [('Location', f'/match-score?uuid={uuid}')], '')
 
     @staticmethod
-    def get_context(uuid: str, name1: str, name2: str, score: FormattedScoreDto) -> dict[str, str | int]:
+    def get_context(uuid: UUID, name1: str, name2: str, score: FormattedScoreDto) -> dict[str, str | int]:
         context = {
             "uuid": uuid,
             "name1": name1,
